@@ -27,37 +27,67 @@ function TaskBoardList(props) {
             return;
         }
     
-        const column = boardData.columns[source.droppableId];
+        const start = boardData.columns[source.droppableId];
+        const finish = boardData.columns[destination.droppableId];
 
-        const newTaskIds = Array.from(column.taskIds);
-        newTaskIds.splice(source.index, 1);
-        newTaskIds.splice(destination.index, 0, draggableId);
+        if(start === finish){
+            // Dragged within one column
+            const newTaskIds = Array.from(start.taskIds);
+            newTaskIds.splice(source.index, 1);
+            newTaskIds.splice(destination.index, 0, draggableId);
+            
+            const newColumn = {
+                ...start,
+                taskIds: newTaskIds,
+            };
         
-        const newColumn = {
-            ...column,
-            taskIds: newTaskIds,
+            console.log(start)
+            console.log(newColumn)
+
+            const newBoardData = boardData
+
+            newBoardData.columns[source.droppableId] = newColumn;
+        
+            setBoardData({...newBoardData})
+            console.log("Board data set")
+            console.log(newColumn.taskIds)
+
+            return;
+        }
+
+        // Start column different to destination
+        const startTaskIds = Array.from(start.taskIds);
+        startTaskIds.splice(source.index, 1);
+        const newStart = {
+            ...start,
+            taskIds: startTaskIds,
         };
-    
-        console.log(column)
-        console.log(newColumn)
+
+        const finishTaskIds = Array.from(finish.taskIds);
+        finishTaskIds.splice(destination.index, 0, draggableId);
+
+        const newFinish = {
+            ...finish,
+            taskIds: finishTaskIds,
+        };
 
         const newBoardData = boardData
 
-        newBoardData.columns[source.droppableId] = newColumn;
-    
+        newBoardData.columns[source.droppableId] = newStart;
+        newBoardData.columns[destination.droppableId] = newFinish;
         setBoardData({...newBoardData})
-        console.log("Board data set")
-        console.log(newColumn.taskIds)
     }
 
     return( 
         <DragDropContext onDragEnd={onDragEnd}>
-            {boardData.columnOrder.map((columnId) => {
-            const column = boardData.columns[columnId];
-            const tasks = column.taskIds.map(taskId => boardData.tasks[taskId]);
+            <div className="task-board-container">
+                {boardData.columnOrder.map((columnId) => {
+                const column = boardData.columns[columnId];
+                const tasks = column.taskIds.map(taskId => boardData.tasks[taskId]);
 
-            return <TaskBoardColumn key={column.id} column={column} tasks={tasks} />;
-            })}
+                return <TaskBoardColumn key={column.id} column={column} tasks={tasks} />;
+                })}
+            </div>
         </DragDropContext>
     );
 }

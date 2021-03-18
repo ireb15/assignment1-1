@@ -8,20 +8,27 @@ const TaskBoardSampleData = {
         'task6': {id: 'task6', content: 'Another one'},
     },
 
+    // Todo make selection state one of the props
+
     columns: {
         'To do': {
             id: 'To do',
             title: 'To do',
-            taskIds: ['task1', 'task2', 'task3', 'task4'],
+            taskIds: ['task1', 'task2'],
         },
         'In Progress': {
             id: 'In Progress',
             title: 'In Progress',
+            taskIds: ['task3', 'task4'],
+        },
+        'Done': {
+            id: 'Done',
+            title: 'Done',
             taskIds: ['task5', 'task6'],
         },
     },
 
-    columnOrder: ['To do'],
+    columnOrder: ['To do', 'In Progress', 'Done'],
 };
 
 export default TaskBoardSampleData;
