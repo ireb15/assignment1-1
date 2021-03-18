@@ -1,5 +1,6 @@
 import React from "react";
 import BoardImage from '../assets/images/BoardImage';
+import TaskBoardList from '../components/global/TaskBoardList/TaskBoardList'
 
 function BoardView() {
   return (
@@ -9,6 +10,7 @@ function BoardView() {
         bottom: 200
     }}>
         <BoardImage />
+        <TaskBoardList/>
     </div>
   );
 }
