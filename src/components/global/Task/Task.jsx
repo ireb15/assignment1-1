@@ -13,7 +13,7 @@ function Task(props) {
   const handleIconClick = () => setIsExpanded(!isExpanded);
 
   return (
-    <Draggable draggableId={props.name} index={props.index}>
+    <Draggable key={props.name} draggableId={props.name} index={props.index}>
       {provided => (
         <div className={"task-container" + (isExpanded ? "--expanded" : "")}
           {...provided.draggableProps}

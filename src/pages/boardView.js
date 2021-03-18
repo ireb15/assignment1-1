@@ -1,6 +1,7 @@
 import React from "react";
 import BoardImage from '../assets/images/BoardImage';
 import TaskBoardList from '../components/global/TaskBoardList/TaskBoardList'
+import TaskBoardSampleData from '../components/global/TaskBoardList/TaskBoardSampleData'
 
 function BoardView() {
   return (
@@ -10,7 +11,7 @@ function BoardView() {
         bottom: 200
     }}>
         <BoardImage />
-        <TaskBoardList/>
+        <TaskBoardList taskBoardData={TaskBoardSampleData}/>
     </div>
   );
 }
